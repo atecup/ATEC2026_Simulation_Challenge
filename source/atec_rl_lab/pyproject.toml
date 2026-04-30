@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel", "toml"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atec_rl_lab"
+version = "0.2.1"
+description = "Reinforcement Learning Lab for ATEC 2026."
+dependencies = [
+    "argcomplete",
+]
+requires-python = ">=3.10"
+license = { text = "Apache 2.0" }
+authors = [
+    { name = "CUHK LRL" }
+]
+maintainers = [
+    { name = "CUHK LRL" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX :: Linux"
+]
+dynamic = []
