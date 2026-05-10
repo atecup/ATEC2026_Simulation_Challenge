@@ -83,7 +83,7 @@ class BaseSceneCfg(InteractiveSceneCfg):
         width=640,
         data_types=["rgb", "depth"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0,
+            focal_length=15.0,
             horizontal_aperture=20.955,
             clipping_range=(0.05, 50.0),
         ),
@@ -100,7 +100,7 @@ class BaseSceneCfg(InteractiveSceneCfg):
         width=640,
         data_types=["rgb", "depth"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0,
+            focal_length=15.0,
             horizontal_aperture=20.955,
             clipping_range=(0.05, 50.0),
         ),

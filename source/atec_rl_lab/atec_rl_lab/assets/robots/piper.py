@@ -52,7 +52,7 @@ PIPER_CFG = ATECArticulationCfg(
     },
     ee_camera_link_name = "gripper_base",
     ee_camera_offset = CameraCfg.OffsetCfg(
-        pos=(-0.05, 0.0, 0.0),
+        pos=(-0.05, 0.0, 0.06),
         rot=tuple(float(x) for x in R.from_euler("xyz", [0.0, 0.0, -np.pi / 2]).as_quat(scalar_first=True)),
         convention="ros",
     ),
