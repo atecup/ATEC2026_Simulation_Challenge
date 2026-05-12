@@ -68,7 +68,7 @@ Follow the official Isaac Lab installation [guide](https://isaac-sim.github.io/I
 
 Clone repository
 ```bash
-git clone https://github.com/skywoodsz/ATEC2026_Simulation_Challenge.git
+git clone https://github.com/atecup/ATEC2026_Simulation_Challenge.git
 cd ATEC2026_Simulation_Challenge
 ```
 
@@ -88,9 +88,9 @@ After installation, all `ATEC-*` environments will be available in the active Py
 
 Download Robot Models
 ```bash
-git clone https://github.com/skywoodsz/atec_robot_model.git
-cd atec_robot_model
-git lfs pull
+cd ATEC2026_Simulation_Challenge
+curl https://static.atecup.com/atec2026/atec_robot_model.zip -o atec_robot_model.zip
+unzip atec_robot_model.zip -d atec_robot_model
 ```
 
 ---
