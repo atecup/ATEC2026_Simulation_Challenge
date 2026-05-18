@@ -1,5 +1,3 @@
-
-
 ## 1. Introduction
 
 The ATEC 2026 Simulation Challenge provides a standardized suite of robot simulation environments built on IsaacLab, designed to evaluate both locomotion and loco-manipulation capabilities. Participants may select one or multiple legged robot platforms to complete a set of representative tasks, including *Off-road Navigation*, *Tabletop Manipulation*, *Garbage Collection*, and *Obstacle Traversal*.  
@@ -12,21 +10,22 @@ This repository includes simulation assets, task definitions, and reference scri
 
 - **Robot platforms**
   - Humanoid: Unitree G1 (with two-finger gripper)
-  - Dual-wheel legged + manipulator: Tron1 + AgileX Piper  
-  - Quadruped + manipulator: Unitree B2 + AgileX Piper  
-  - Wheel-legged quadruped + manipulator: Unitree B2W + AgileX Piper  
-  - Manipulator-only: AgileX Piper  
-
+  - Dual-wheel legged + manipulator: Tron1 + AgileX Piper
+  - Tron2A legged / wheel + manipulator
+  - Quadruped + manipulator: Unitree B2 + AgileX Piper
+  - Wheel-legged quadruped + manipulator: Unitree B2W + AgileX Piper
+  - Manipulator-only: AgileX Piper
 - **Sensor suite** (standardized across platforms)
   - 1 × LiDAR  
   - 1 × eye-to-hand RGB-D camera  
   - 1 × eye-in-hand RGB-D camera *(humanoids use a stereo pair)*  
   
   ## Robot Platforms
-  
-  |                        Humanoid                        |              Dual-wheel legged + manipulator              |                Quadruped + manipulator                 |          Wheel-legged quadruped + manipulator           |                        Manipulator                        |
-  | :----------------------------------------------------: | :-------------------------------------------------------: | :----------------------------------------------------: | :-----------------------------------------------------: | :-------------------------------------------------------: |
-  | <p align="center"><img src="./doc/G1.png" width="180"> | <p align="center"><img src="./doc/Tron1.png" width="180"> | <p align="center"><img src="./doc/B2.png" width="180"> | <p align="center"><img src="./doc/b2w.png" width="180"> | <p align="center"><img src="./doc/piper.png" width="180"> |
+
+
+  |                        Humanoid                        |              Dual-wheel legged + manipulator              |                  Tron2A legged + manipulator                  |                  Tron2A wheel + manipulator                  |                Quadruped + manipulator                |          Wheel-legged quadruped + manipulator          |                        Manipulator                        |
+  | :----------------------------------------------------: | :-------------------------------------------------------: | :-----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------: | :-----------------------------------------------------: | :-------------------------------------------------------: |
+  | <p align="center"><img src="./doc/G1.png" width="180"> | <p align="center"><img src="./doc/Tron1.png" width="180"> | <p align="center"><img src="./doc/Tron2Legged.png" width="180"> | <p align="center"><img src="./doc/Tron2Wheel.png" width="180"> | <p align="center"><img src="./doc/B2.png" width="180"> | <p align="center"><img src="./doc/b2w.png" width="180"> | <p align="center"><img src="./doc/piper.png" width="180"> |
 
 > **Note:** Users may modify or optimize assets (e.g., collision geometry simplification) for training purposes. The provided assets serve as reference models for evaluation.
 
@@ -47,12 +46,13 @@ This repository includes simulation assets, task definitions, and reference scri
 
 The `atec_rl_lab.tasks` module registers all **arena–robot combinations** as Gym-compatible environments, enabling unified interfaces for evaluation and submission.
 
-| Arena \ Robot | G1 | Tron1Piper | B2Piper | B2wPiper | Piper |
-| --- | --- | --- | --- | --- | --- |
-| Task A | `ATEC-TaskA-G1` | `ATEC-TaskA-Tron1Piper` | `ATEC-TaskA-B2Piper` | `ATEC-TaskA-B2wPiper` |  |
-| Task B | `ATEC-TaskB-G1` | `ATEC-TaskB-Tron1Piper` | `ATEC-TaskB-B2Piper` | `ATEC-TaskB-B2wPiper` |  |
-| Task D | `ATEC-TaskD-G1` | `ATEC-TaskD-Tron1Piper` | `ATEC-TaskD-B2Piper` | `ATEC-TaskD-B2wPiper` |  |
-| Task E |  |  |  |  | `ATEC-TaskE-Piper` |
+
+| Arena \ Robot | G1              | Tron1Piper              | Tron2ALegged              | Tron2AWheel              | B2Piper              | B2wPiper              | Piper              |
+| ------------- | --------------- | ----------------------- | ------------------------- | ------------------------ | -------------------- | --------------------- | ------------------ |
+| Task A        | `ATEC-TaskA-G1` | `ATEC-TaskA-Tron1Piper` | `ATEC-TaskA-Tron2ALegged` | `ATEC-TaskA-Tron2AWheel` | `ATEC-TaskA-B2Piper` | `ATEC-TaskA-B2wPiper` |                    |
+| Task B        | `ATEC-TaskB-G1` | `ATEC-TaskB-Tron1Piper` | `ATEC-TaskB-Tron2ALegged` | `ATEC-TaskB-Tron2AWheel` | `ATEC-TaskB-B2Piper` | `ATEC-TaskB-B2wPiper` |                    |
+| Task D        | `ATEC-TaskD-G1` | `ATEC-TaskD-Tron1Piper` | `ATEC-TaskD-Tron2ALegged` | `ATEC-TaskD-Tron2AWheel` | `ATEC-TaskD-B2Piper` | `ATEC-TaskD-B2wPiper` |                    |
+| Task E        |                 |                         |                           |                          |                      |                       | `ATEC-TaskE-Piper` |
 
 > **Note:** The provided environments are designed for evaluation and submission only and do not support parallelized training. For training, users should implement custom wrappers or leverage external frameworks for efficient learning.
 

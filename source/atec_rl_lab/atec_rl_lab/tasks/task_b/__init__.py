@@ -19,6 +19,24 @@ gym.register(
 )
 
 gym.register(
+    id = "ATEC-TaskB-Tron2ALegged",
+    entry_point="atec_rl_lab.tasks.task_base.envs_base:BaseRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.env_cfg:TaskBEnvTron2ALeggedCfg"
+    },
+)
+
+gym.register(
+    id = "ATEC-TaskB-Tron2AWheel",
+    entry_point="atec_rl_lab.tasks.task_base.envs_base:BaseRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.env_cfg:TaskBEnvTron2AWheelCfg"
+    },
+)
+
+gym.register(
     id = "ATEC-TaskB-B2Piper",
     entry_point="atec_rl_lab.tasks.task_base.envs_base:BaseRLEnv",
     disable_env_checker=True,
@@ -36,5 +54,5 @@ gym.register(
     },
 )
 
-from .env_cfg import TaskBEnvCfg, TaskBEnvB2Cfg
-__all__ = ['TaskBEnvCfg', 'TaskBEnvB2Cfg']
+from .env_cfg import TaskBEnvCfg, TaskBEnvB2Cfg, TaskBEnvTron2ALeggedCfg, TaskBEnvTron2AWheelCfg
+__all__ = ['TaskBEnvCfg', 'TaskBEnvB2Cfg', 'TaskBEnvTron2ALeggedCfg', 'TaskBEnvTron2AWheelCfg']

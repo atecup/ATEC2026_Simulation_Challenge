@@ -5,6 +5,7 @@ from .b2w import UNITREE_B2W_CFG, UNITREE_B2W_PIPER_CFG
 from .g1.g1_29dof_dex1 import UNITREE_G1_29DOF_DEX1_CFG
 from atec_rl_lab.assets.robots.piper import PIPER_CFG
 from .tron1a import TRON1A_WHEEL_CFG, TRON1A_PIPER_CFG
+from .tron2a import TRON2A_LEGGED_CFG, TRON2A_WHEEL_CFG
 from .cfg import ATECArticulationCfg
 
 ROBOTS = {
@@ -16,6 +17,8 @@ ROBOTS = {
     "piper": PIPER_CFG,
     "tron1a": TRON1A_WHEEL_CFG,
     "tron1a_piper": TRON1A_PIPER_CFG,
+    "tron2a_legged": TRON2A_LEGGED_CFG,
+    "tron2a_wheel": TRON2A_WHEEL_CFG,
 }
 
 __all__ = [
@@ -27,5 +30,7 @@ __all__ = [
     "PIPER_CFG",
     "TRON1A_WHEEL_CFG",
     "TRON1A_PIPER_CFG",
+    "TRON2A_LEGGED_CFG",
+    "TRON2A_WHEEL_CFG",
     "ROBOTS",
 ]

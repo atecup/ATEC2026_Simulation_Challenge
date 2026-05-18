@@ -11,6 +11,7 @@ from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.assets import RigidObjectCfg
+from isaaclab.sensors import MultiMeshRayCasterCfg
 import isaaclab.sim as sim_utils
 
 from atec_rl_lab.tasks.task_base import BaseEnvCfg
@@ -94,6 +95,30 @@ class TaskDEnvCfg(BaseEnvCfg):
         )
         self.sim.physics_material = self.scene.terrain.physics_material
 
+        if self.scene.lidar_sensor is not None:
+            lidar_sensor = self.scene.lidar_sensor
+            self.scene.lidar_sensor = MultiMeshRayCasterCfg(
+                prim_path=lidar_sensor.prim_path,
+                update_period=lidar_sensor.update_period,
+                pattern_cfg=lidar_sensor.pattern_cfg,
+                max_distance=lidar_sensor.max_distance,
+                debug_vis=lidar_sensor.debug_vis,
+                offset=lidar_sensor.offset,
+                attach_yaw_only=lidar_sensor.attach_yaw_only,
+                ray_alignment=lidar_sensor.ray_alignment,
+                drift_range=lidar_sensor.drift_range,
+                ray_cast_drift_range=lidar_sensor.ray_cast_drift_range,
+                visualizer_cfg=lidar_sensor.visualizer_cfg,
+                mesh_prim_paths=[
+                    "/World/ground",
+                    MultiMeshRayCasterCfg.RaycastTargetCfg(
+                        prim_expr="{ENV_REGEX_NS}/Box",
+                        is_shared=True,
+                        track_mesh_transforms=True,
+                    ),
+                ],
+            )
+
         # Task D reward
         self.rewards = RewardsCfg()
         self.terminations = TaskDTerminationsCfg()
@@ -161,6 +186,57 @@ class TaskDEnvTron1Cfg(TaskDEnvCfg):
         leg_joint_names = TRON1A_PIPER_CFG.leg_joint_names
         wheel_joint_names = TRON1A_PIPER_CFG.wheel_joint_names
         arm_joint_names = TRON1A_PIPER_CFG.arm_joint_names
+
+        self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
+        self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
+
+        self.actions.joint_pos_leg.joint_names = leg_joint_names
+        self.actions.joint_vel_wheel.joint_names = wheel_joint_names
+        self.actions.joint_pos_arm.joint_names = arm_joint_names
+
+
+@configclass
+class TaskDEnvTron2ALeggedCfg(TaskDEnvCfg):
+    def __post_init__(self):
+        from atec_rl_lab.assets.robots import TRON2A_LEGGED_CFG
+
+        self.scene.robot = TRON2A_LEGGED_CFG.replace(
+            prim_path="{ENV_REGEX_NS}/Robot",
+            init_state=TRON2A_LEGGED_CFG.init_state.replace(
+                pos=(-3, 0.0, 0.8 + 0.166),
+            )
+        )
+        super().__post_init__()
+
+        joint_names = TRON2A_LEGGED_CFG.joint_names
+        leg_joint_names = TRON2A_LEGGED_CFG.leg_joint_names
+        arm_joint_names = TRON2A_LEGGED_CFG.arm_joint_names
+
+        self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
+        self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
+
+        self.actions.joint_pos_leg.joint_names = leg_joint_names
+        self.actions.joint_vel_wheel = None
+        self.actions.joint_pos_arm.joint_names = arm_joint_names
+
+
+@configclass
+class TaskDEnvTron2AWheelCfg(TaskDEnvCfg):
+    def __post_init__(self):
+        from atec_rl_lab.assets.robots import TRON2A_WHEEL_CFG
+
+        self.scene.robot = TRON2A_WHEEL_CFG.replace(
+            prim_path="{ENV_REGEX_NS}/Robot",
+            init_state=TRON2A_WHEEL_CFG.init_state.replace(
+                pos=(-3, 0.0, 0.8 + 0.166),
+            )
+        )
+        super().__post_init__()
+
+        joint_names = TRON2A_WHEEL_CFG.joint_names
+        leg_joint_names = TRON2A_WHEEL_CFG.leg_joint_names
+        wheel_joint_names = TRON2A_WHEEL_CFG.wheel_joint_names
+        arm_joint_names = TRON2A_WHEEL_CFG.arm_joint_names
 
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names

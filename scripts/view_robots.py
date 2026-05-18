@@ -26,6 +26,8 @@ from atec_rl_lab.assets.robots import (
     UNITREE_B2W_PIPER_CFG,
     TRON1A_WHEEL_CFG,
     TRON1A_PIPER_CFG,
+    TRON2A_LEGGED_CFG,
+    TRON2A_WHEEL_CFG,
     PIPER_CFG,
     UNITREE_G1_29DOF_DEX1_CFG
 )
@@ -58,11 +60,17 @@ class ATECSceneCfg(InteractiveSceneCfg):
     tron1a_piper = replace(TRON1A_PIPER_CFG, prim_path="{ENV_REGEX_NS}/tron1a_piper")
     tron1a_piper.init_state.pos = (tron1a_piper.init_state.pos[0], tron1a_piper.init_state.pos[1] + 5.0, tron1a_piper.init_state.pos[2] + 0.166)
     
+    tron2a_legged = replace(TRON2A_LEGGED_CFG, prim_path="{ENV_REGEX_NS}/tron2a_legged")
+    tron2a_legged.init_state.pos = (tron2a_legged.init_state.pos[0], tron2a_legged.init_state.pos[1] + 6.0, tron2a_legged.init_state.pos[2] + 0.166)
+
+    tron2a_wheel = replace(TRON2A_WHEEL_CFG, prim_path="{ENV_REGEX_NS}/tron2a_wheel")
+    tron2a_wheel.init_state.pos = (tron2a_wheel.init_state.pos[0], tron2a_wheel.init_state.pos[1] + 7.0, tron2a_wheel.init_state.pos[2] + 0.166)
+
     piper = replace(PIPER_CFG, prim_path="{ENV_REGEX_NS}/piper")
-    piper.init_state.pos = (piper.init_state.pos[0], piper.init_state.pos[1] + 6.0, piper.init_state.pos[2])
+    piper.init_state.pos = (piper.init_state.pos[0], piper.init_state.pos[1] + 8.0, piper.init_state.pos[2])
 
     g1 = replace(UNITREE_G1_29DOF_DEX1_CFG, prim_path="{ENV_REGEX_NS}/g1")
-    g1.init_state.pos = (g1.init_state.pos[0], g1.init_state.pos[1] + 7.0, g1.init_state.pos[2])
+    g1.init_state.pos = (g1.init_state.pos[0], g1.init_state.pos[1] + 9.0, g1.init_state.pos[2])
 
 def main():
     # Initialize the simulation context

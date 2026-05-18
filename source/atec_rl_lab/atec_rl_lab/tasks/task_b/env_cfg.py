@@ -153,6 +153,70 @@ class TaskBEnvTron1Cfg(TaskBEnvCfg):
         self.actions.joint_vel_wheel.joint_names = wheel_joint_names
         self.actions.joint_pos_arm.joint_names = arm_joint_names
 
+
+@configclass
+class TaskBEnvTron2ALeggedCfg(TaskBEnvCfg):
+    def __post_init__(self):
+        from atec_rl_lab.assets.robots import TRON2A_LEGGED_CFG
+
+        self.scene.robot = TRON2A_LEGGED_CFG.replace(
+            prim_path="{ENV_REGEX_NS}/Robot",
+            init_state=TRON2A_LEGGED_CFG.init_state.replace(
+                pos=(-10, -10, 0.9 + 0.166),
+            )
+        )
+        super().__post_init__()
+
+        self.rewards.grasped_objects.params["ee_body_name"] = "gripper_base_Link"
+        self.terminations.illegal_contact.params["sensor_cfg"].body_names = [
+            TRON2A_LEGGED_CFG.base_link_name,
+            "proximal_.*_[LR]_Link",
+        ]
+
+        joint_names = TRON2A_LEGGED_CFG.joint_names
+        leg_joint_names = TRON2A_LEGGED_CFG.leg_joint_names
+        arm_joint_names = TRON2A_LEGGED_CFG.arm_joint_names
+
+        self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
+        self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
+
+        self.actions.joint_pos_leg.joint_names = leg_joint_names
+        self.actions.joint_vel_wheel = None
+        self.actions.joint_pos_arm.joint_names = arm_joint_names
+
+
+@configclass
+class TaskBEnvTron2AWheelCfg(TaskBEnvCfg):
+    def __post_init__(self):
+        from atec_rl_lab.assets.robots import TRON2A_WHEEL_CFG
+
+        self.scene.robot = TRON2A_WHEEL_CFG.replace(
+            prim_path="{ENV_REGEX_NS}/Robot",
+            init_state=TRON2A_WHEEL_CFG.init_state.replace(
+                pos=(-10, -10, 0.9 + 0.166),
+            )
+        )
+        super().__post_init__()
+
+        self.rewards.grasped_objects.params["ee_body_name"] = "gripper_base_Link"
+        self.terminations.illegal_contact.params["sensor_cfg"].body_names = [
+            TRON2A_WHEEL_CFG.base_link_name,
+            "proximal_.*_[LR]_Link",
+        ]
+
+        joint_names = TRON2A_WHEEL_CFG.joint_names
+        leg_joint_names = TRON2A_WHEEL_CFG.leg_joint_names
+        wheel_joint_names = TRON2A_WHEEL_CFG.wheel_joint_names
+        arm_joint_names = TRON2A_WHEEL_CFG.arm_joint_names
+
+        self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
+        self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
+
+        self.actions.joint_pos_leg.joint_names = leg_joint_names
+        self.actions.joint_vel_wheel.joint_names = wheel_joint_names
+        self.actions.joint_pos_arm.joint_names = arm_joint_names
+
+
 @configclass
 class TaskBEnvB2Cfg(TaskBEnvCfg):
     def __post_init__(self):
