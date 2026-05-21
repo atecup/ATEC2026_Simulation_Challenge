@@ -43,6 +43,8 @@ COPY --chown=admin:admin solution_zero.py ./solution/solution.py
 # COPY --chown=admin:admin act ./solution/act
 # COPY --chown=admin:admin policy_act.pt ./solution/policy_act.pt
 
+# demo4: custom action
+# COPY --chown=admin:admin solution_custom_action.py ./solution/solution.py
 
 # 赋予 run.sh 可执行权限（不要改）
 RUN set -x && \
