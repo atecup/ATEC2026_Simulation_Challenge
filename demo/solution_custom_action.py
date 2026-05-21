@@ -7,21 +7,23 @@ class AlgSolution:
         pass
 
     def get_action_spec(self) -> dict[str, dict[str, Any]] | None:
-        """Optional action customization.
-
-        Return None to use official default action config.
-
-        Allowed groups:
-            - leg
-            - arm
-            - wheel
-
-        Allowed fields:
-            - mode: "position", "velocity", or "effort"
-            - scale: positive float
-            - clip: None or [min, max]
-        """
-        return None
+        return {
+        "leg": {
+            "mode": "position",
+            "scale": 1.0,
+            "clip": [-10.0, 10.0],
+        },
+        "wheel": {
+            "mode": "velocity",
+            "scale": 2.0,
+            "clip": [-11.0, 11.0],
+        },
+        "arm": {
+            "mode": "effort",
+            "scale": 3.0,
+            "clip": [-12.0, 12.0],
+        },
+    }
 
     def predicts(self, obs, current_score):
         proprio = obs['proprio']

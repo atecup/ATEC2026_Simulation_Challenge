@@ -159,9 +159,9 @@ class TaskDEnvG1Cfg(TaskDEnvCfg):
         joint_names = UNITREE_G1_29DOF_DEX1_CFG.joint_names
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
-        self.actions.joint_pos_leg.joint_names = joint_names
-        self.actions.joint_vel_wheel = None
-        self.actions.joint_pos_arm = None
+        self.actions.joint_leg.joint_names = joint_names
+        self.actions.joint_wheel = None
+        self.actions.joint_arm = None
 
 
 @configclass
@@ -190,9 +190,9 @@ class TaskDEnvTron1Cfg(TaskDEnvCfg):
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
 
-        self.actions.joint_pos_leg.joint_names = leg_joint_names
-        self.actions.joint_vel_wheel.joint_names = wheel_joint_names
-        self.actions.joint_pos_arm.joint_names = arm_joint_names
+        self.actions.joint_leg.joint_names = leg_joint_names
+        self.actions.joint_wheel.joint_names = wheel_joint_names
+        self.actions.joint_arm.joint_names = arm_joint_names
 
 
 @configclass
@@ -215,9 +215,9 @@ class TaskDEnvTron2ALeggedCfg(TaskDEnvCfg):
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
 
-        self.actions.joint_pos_leg.joint_names = leg_joint_names
-        self.actions.joint_vel_wheel = None
-        self.actions.joint_pos_arm.joint_names = arm_joint_names
+        self.actions.joint_leg.joint_names = leg_joint_names
+        self.actions.joint_wheel = None
+        self.actions.joint_arm.joint_names = arm_joint_names
 
 
 @configclass
@@ -241,9 +241,9 @@ class TaskDEnvTron2AWheelCfg(TaskDEnvCfg):
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
 
-        self.actions.joint_pos_leg.joint_names = leg_joint_names
-        self.actions.joint_vel_wheel.joint_names = wheel_joint_names
-        self.actions.joint_pos_arm.joint_names = arm_joint_names
+        self.actions.joint_leg.joint_names = leg_joint_names
+        self.actions.joint_wheel.joint_names = wheel_joint_names
+        self.actions.joint_arm.joint_names = arm_joint_names
 
 
 @configclass
@@ -273,9 +273,9 @@ class TaskDEnvB2Cfg(TaskDEnvCfg):
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
 
-        self.actions.joint_pos_leg.joint_names = leg_joint_names
-        self.actions.joint_pos_arm.joint_names = arm_joint_names
-        self.actions.joint_vel_wheel = None
+        self.actions.joint_leg.joint_names = leg_joint_names
+        self.actions.joint_arm.joint_names = arm_joint_names
+        self.actions.joint_wheel = None
 
 
 @configclass
@@ -305,6 +305,6 @@ class TaskDEnvB2WCfg(TaskDEnvCfg):
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
 
-        self.actions.joint_pos_leg.joint_names = leg_joint_names
-        self.actions.joint_vel_wheel.joint_names = wheel_joint_names
-        self.actions.joint_pos_arm.joint_names = arm_joint_names
+        self.actions.joint_leg.joint_names = leg_joint_names
+        self.actions.joint_wheel.joint_names = wheel_joint_names
+        self.actions.joint_arm.joint_names = arm_joint_names

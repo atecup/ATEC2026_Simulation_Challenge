@@ -7,9 +7,6 @@ import json
 
 from isaaclab.app import AppLauncher
 
-from demo.solution import AlgSolution
-solution = AlgSolution()
-
 # -----------------------------------------------------------------------------
 # CLI
 # -----------------------------------------------------------------------------
@@ -56,7 +53,10 @@ from isaaclab.utils.dict import print_dict  # noqa: E402
 import atec_rl_lab.tasks  # noqa: F401, E402 (register your tasks)
 from isaaclab_tasks.utils import parse_env_cfg
 from rl_utils import camera_follow
+from atec_rl_lab.tasks.task_base.action_base import apply_safe_action_spec
 
+from demo.solution import AlgSolution
+solution = AlgSolution()
 
 def play() -> tuple[float, float]:
     if args_cli.task is None:
@@ -73,6 +73,13 @@ def play() -> tuple[float, float]:
         use_fabric=not args_cli.disable_fabric
     )
 
+    # TODO: simulate getting action spec from jason string (e.g. from a file or network)
+    # action_spec = solution.get_action_spec() if hasattr(solution, "get_action_spec") else None
+    # action_spec_json = json.dumps(action_spec)
+
+    # New Feature: apply safe action spec to env config (e.g. for scaling/clipping actions from your solution)
+    env_cfg = apply_safe_action_spec(env_cfg, action_spec_json)
+    
     env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
 
     # Convert MARL -> single agent if needed (kept from your original script)

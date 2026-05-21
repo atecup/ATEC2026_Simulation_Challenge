@@ -256,6 +256,6 @@ class TaskEEnvPiperCfg(TaskEEnvCfg):
         joint_names = PIPER_CFG.joint_names
         self.observations.proprio.joint_pos.params["asset_cfg"].joint_names = joint_names
         self.observations.proprio.joint_vel.params["asset_cfg"].joint_names = joint_names
-        self.actions.joint_pos_leg = None
-        self.actions.joint_vel_wheel = None
-        self.actions.joint_pos_arm.joint_names = joint_names
+        self.actions.joint_leg = None
+        self.actions.joint_wheel = None
+        self.actions.joint_arm.joint_names = joint_names

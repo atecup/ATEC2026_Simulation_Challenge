@@ -134,15 +134,15 @@ class CommandsCfg:
 class ActionsCfg:
     """Action specifications for the MDP."""
     # For leg joint
-    joint_pos_leg = mdp.JointPositionActionCfg(
+    joint_leg = mdp.JointPositionActionCfg(
         asset_name="robot", joint_names=[""], scale=0.5, use_default_offset=True, clip=None, preserve_order=True
     )
     # For wheel joint
-    joint_vel_wheel = mdp.JointVelocityActionCfg(
+    joint_wheel = mdp.JointVelocityActionCfg(
         asset_name="robot", joint_names=[""], scale=5.0, use_default_offset=True, clip=None, preserve_order=True
     )
     # For manipulator joint
-    joint_pos_arm = mdp.JointPositionActionCfg(
+    joint_arm = mdp.JointPositionActionCfg(
         asset_name="robot", joint_names=[""], scale=0.5, use_default_offset=True, clip=None, preserve_order=True
     )
 
