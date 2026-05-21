@@ -139,6 +139,7 @@ python scripts/play_atec_task.py --task ATEC-TaskA-G1 --enable_cameras
 
 Participants must implement demo/solution.py, and this file name can not be changed.
 * Class: AlgSolution
+* Optional Function: get_action_spec(), where participants may customize action mode, scale, and clip range. Return None to use the default action configuration.
 * Function: predicts(obs, current_score), where **obs** is the observation, and **current_score** is the current score
 * Return: {"action": action, "giveup": False}, where action is the prediction action represented by List, and **giveup** is the giveup flag. if **giveup** is True, the scoring job will be terminated.
 
@@ -187,7 +188,7 @@ Robot control actions are organized by joint type.
 The action configuration is as follows:
 
 ```
-joint_pos_leg = mdp.JointPositionActionCfg(
+joint_leg = mdp.JointPositionActionCfg(
     asset_name="robot",
     joint_names=[""],
     scale=0.5,
@@ -196,7 +197,7 @@ joint_pos_leg = mdp.JointPositionActionCfg(
     preserve_order=True,
 )
 
-joint_vel_wheel = mdp.JointVelocityActionCfg(
+joint_wheel = mdp.JointVelocityActionCfg(
     asset_name="robot",
     joint_names=[""],
     scale=5.0,
@@ -205,7 +206,7 @@ joint_vel_wheel = mdp.JointVelocityActionCfg(
     preserve_order=True,
 )
 
-joint_pos_arm = mdp.JointPositionActionCfg(
+joint_arm = mdp.JointPositionActionCfg(
     asset_name="robot",
     joint_names=[""],
     scale=0.5,
@@ -228,6 +229,72 @@ Different robots enable different action items according to their structure:
 - Wheeled legged robots
   (Dual-wheel legged mobile manipulator robots, quadruped-wheel legged mobile manipulator robots)
   enable wheel velocity control.
+
+#### Custom Action Configuration
+
+Participants may optionally customize the action configuration in `demo/solution.py` by implementing `AlgSolution.get_action_spec()`.
+
+If `get_action_spec()` returns `None`, the official default action configuration is used.
+
+```python
+from typing import Any
+
+
+class AlgSolution:
+    def get_action_spec(self) -> dict[str, dict[str, Any]] | None:
+        return None
+
+    def predicts(self, obs, current_score):
+        ...
+```
+
+The returned action spec is a dictionary whose keys are action groups:
+
+- `leg`: leg joints
+- `wheel`: wheel joints
+- `arm`: manipulator joints
+
+Each group may define the following fields:
+
+- `mode`: one of `"position"`, `"velocity"`, or `"effort"`
+- `scale`: positive float
+- `clip`: `None` or `[min, max]`
+
+Example:
+
+```python
+from typing import Any
+
+
+class AlgSolution:
+    def get_action_spec(self) -> dict[str, dict[str, Any]] | None:
+        return {
+            "leg": {
+                "mode": "position",
+                "scale": 1.0,
+                "clip": [-10.0, 10.0],
+            },
+            "wheel": {
+                "mode": "velocity",
+                "scale": 2.0,
+                "clip": [-11.0, 11.0],
+            },
+            "arm": {
+                "mode": "effort",
+                "scale": 3.0,
+                "clip": [-12.0, 12.0],
+            },
+        }
+
+    def predicts(self, obs, current_score):
+        ...
+```
+
+Notes:
+
+- Missing groups use the official default configuration.
+- If a robot does not have a requested action group, that group is ignored.
+- The joint names and joint order are inherited from the selected task and robot.
 
 ## Contributors
 - **[CUHK Legged Robot Lab](https://cuhkleggedrobotlab.github.io/)**
