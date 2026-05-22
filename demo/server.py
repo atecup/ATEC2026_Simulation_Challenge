@@ -128,7 +128,10 @@ async def health():
 
 @app.get('/get_action_spec')
 async def get_action_spec():
-    return agent.get_action_spec()
+    if hasattr(agent, 'get_action_spec'):
+        return agent.get_action_spec()
+    logger.warning("'get_action_spec' not found in solution")
+    return {}
 
 
 @app.post('/stop')
