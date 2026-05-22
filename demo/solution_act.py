@@ -6,6 +6,7 @@ import torchvision.transforms as T
 from dataclasses import dataclass
 import sys
 import os
+from typing import Any
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 #sys.path.insert(0, current_path)
@@ -161,6 +162,9 @@ class AlgSolution:
         self._home_stable_steps = 0
         self._home_done = False
 
+    
+    def get_action_spec(self) -> dict[str, dict[str, Any]] | None:
+        return {}
 
     def _compute_home_action(self, proprio):
         joint_pos_rel = proprio[:, self._QPOS_SLICE]

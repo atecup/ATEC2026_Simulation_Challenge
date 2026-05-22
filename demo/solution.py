@@ -21,7 +21,7 @@ class AlgSolution:
             - scale: positive float
             - clip: None or [min, max]
         """
-        return None
+        return {}
 
     def predicts(self, obs, current_score):
         proprio = obs['proprio']

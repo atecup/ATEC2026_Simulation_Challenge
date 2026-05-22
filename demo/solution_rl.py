@@ -1,5 +1,6 @@
 import os
 import torch
+from typing import Any
 
 class AlgSolution:
 
@@ -58,6 +59,9 @@ class AlgSolution:
             dtype=torch.float32,
         )
 
+
+    def get_action_spec(self) -> dict[str, dict[str, Any]] | None:
+        return {}
 
     def _resolve_joint_ids(self, candidates: tuple[list[str], ...]) -> list[int]:
         last_error = None
@@ -182,7 +186,7 @@ class AlgSolution:
         action_env[:, self.arm_joint_indices] = self.arm_default_action.repeat(num_envs, 1)
 
         return action_env
-
+    
     def predicts(self, obs, current_score):
         """Run policy inference and return current-env full-body action."""
         if current_score > 1:
