@@ -42,7 +42,27 @@ spawn=sim_utils.UsdFileCfg(
     init_state=ATECArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.8 + 0.166),
         joint_pos={
-            ".*_Joint": 0.0,
+            # left leg
+            "proximal_pitch_L_Joint": 0.0,
+            "proximal_roll_L_Joint": 0.0,
+            "proximal_yaw_L_Joint": -3.14159,
+            "knee_L_Joint": 0.0,
+            "ankle_pitch_L_Joint": 0.0,
+            # right leg
+            "proximal_pitch_R_Joint": 0.0,
+            "proximal_roll_R_Joint": 0.0,
+            "proximal_yaw_R_Joint": 3.14159,
+            "knee_R_Joint": 0.0,
+            "ankle_pitch_R_Joint": 0.0,
+            # arm locked at zero
+            "arm1_Joint": 0.0,
+            "arm2_Joint": 0.0,
+            "arm3_Joint": 0.0,
+            "arm4_Joint": 0.0,
+            "arm5_Joint": 0.0,
+            "arm6_Joint": 0.0,
+            "gripper1_Joint": 0.05,
+            "gripper2_Joint": -0.05,
         },
         joint_vel={".*": 0.0},
     ),
@@ -139,6 +159,16 @@ TRON2A_LEGGED_CFG.joint_names = TRON2A_LEGGED_CFG.leg_joint_names + TRON2A_LEGGE
 
 TRON2A_WHEEL_CFG = deepcopy(TRON2A_LEGGED_CFG)
 TRON2A_WHEEL_CFG.spawn.usd_path = str(TRON2A_WFYG_USD_PATH)
+TRON2A_WHEEL_CFG.init_state.joint_pos = {
+    joint_name: joint_pos
+    for joint_name, joint_pos in TRON2A_LEGGED_CFG.init_state.joint_pos.items()
+    if joint_name not in (
+        "proximal_yaw_L_Joint",
+        "proximal_yaw_R_Joint",
+        "ankle_pitch_L_Joint",
+        "ankle_pitch_R_Joint",
+    )
+}
 TRON2A_WHEEL_CFG.actuators["legs_small"].joint_names_expr = [
     "proximal_yaw_L_Joint",
     "proximal_yaw_R_Joint",

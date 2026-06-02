@@ -55,7 +55,7 @@ from isaaclab_tasks.utils import parse_env_cfg
 from rl_utils import camera_follow
 from atec_rl_lab.tasks.task_base.action_base import apply_safe_action_spec
 
-from demo.solution import AlgSolution
+from demo.solution_rl import AlgSolution
 solution = AlgSolution()
 
 def play() -> tuple[float, float]:
@@ -74,8 +74,8 @@ def play() -> tuple[float, float]:
     )
 
     # TODO: simulate getting action spec from jason string (e.g. from a file or network)
-    # action_spec = solution.get_action_spec() if hasattr(solution, "get_action_spec") else None
-    # action_spec_json = json.dumps(action_spec)
+    action_spec = solution.get_action_spec() if hasattr(solution, "get_action_spec") else None
+    action_spec_json = json.dumps(action_spec)
 
     # New Feature: apply safe action spec to env config (e.g. for scaling/clipping actions from your solution)
     env_cfg = apply_safe_action_spec(env_cfg, action_spec_json)
