@@ -65,7 +65,7 @@ class TaskBEnvCfg(BaseEnvCfg):
         self.observations.image.enable_corruption = False
         self.events.physics_material = None
         self.events.base_external_force_torque = None
-        self.events.reset_robot_joints = None
+        # self.events.reset_robot_joints = None
 
         import numpy as np
         rng = np.random.default_rng(seed=self.seed)
