@@ -58,7 +58,7 @@ class TaskAEnvCfg(BaseEnvCfg):
         self.observations.image.enable_corruption = False
         self.events.physics_material = None
         self.events.base_external_force_torque = None
-        self.events.reset_robot_joints = None
+        # self.events.reset_robot_joints = None
 
         self.terminations.fall.params["minimum_height"] = -20.0
 
