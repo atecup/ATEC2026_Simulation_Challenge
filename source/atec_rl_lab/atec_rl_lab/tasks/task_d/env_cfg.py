@@ -131,7 +131,8 @@ class TaskDEnvCfg(BaseEnvCfg):
 
         # Trun off terminations
         self.terminations.illegal_contact = None
-        self.terminations.fall.params["minimum_height"] = 0.25
+        # self.terminations.fall = None
+        self.terminations.fall.params["minimum_height"] = -0.40 # 0.25
 
 @configclass
 class TaskDEnvG1Cfg(TaskDEnvCfg):
